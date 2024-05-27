@@ -1,0 +1,132 @@
+{
+  "_version": "1.37.0",
+  "sap.app": {
+    "id": "zktbldg",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.12.2",
+      "toolsId": "d7650a31-2ec4-4f3f-958b-4bdd10357490"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZKT_GBLD_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "config": {
+      "fullWidth": true
+    },
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.96.7",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zktbldg.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "zktbldg.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "geribildirim1",
+          "pattern": "",
+          "target": "geribildirim1"
+        },
+        {
+          "pattern": "GeriBildirim2/{Id}/{Tip}",
+          "name": "geribildirim2",
+          "target": "geribildirim2"
+        }
+      ],
+      "targets": {
+        "geribildirim1": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewLevel": 1,
+          "viewName": "GeriBildirim1"
+        },
+        "geribildirim2": {
+          "viewType": "XML",
+          "transition": "fade",
+          "viewLevel": 2,
+          "viewName": "GeriBildirim2"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "zktbldg.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

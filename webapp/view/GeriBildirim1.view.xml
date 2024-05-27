@@ -1,0 +1,188 @@
+<mvc:View
+    controllerName="zktbldg.controller.GeriBildirim1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:m="sap.m"
+>
+    <Page
+        id="page"
+        backgroundDesign="List"
+        showHeader="false"
+    >
+        <content>
+            <smartFilterBar:SmartFilterBar
+                id="idSmartFilterBar"
+                persistencyKey="SmartFilterPKey"
+                entitySet="DataSet"
+                enableBasicSearch="false"
+                beforeVariantFetch="onBeforeVariantFetch"
+                afterVariantLoad="onAfterVariantLoad"
+                considerSelectionVariants="true"
+                useDateRangeType="true"
+                considerGroupTitle="false"
+                liveMode="true"
+                useToolbar="false"
+                filterBarExpanded="false"
+                showFilterConfiguration="false"
+            >
+                <smartFilterBar:controlConfiguration>
+                    <smartFilterBar:ControlConfiguration
+                        label="{i18n>Date}"
+                        key="Cdate"
+                        conditionType="sap.ui.comp.config.condition.DateRangeType"
+                        visibleInAdvancedArea="true"
+                    />
+                 
+                    <smartFilterBar:ControlConfiguration
+                        label="{i18n>NotType}"
+                        key="Tip"
+                        visibleInAdvancedArea="true"
+                    >
+                        <smartFilterBar:customControl>
+                            <ComboBox
+                                id="cbTip"
+                                items="{
+                                    path: '/TypeCBSet'
+                                }"
+                            >
+                                <core:ListItem
+                                    key="{Tip}"
+                                    text="{Tiptxt}"
+                                />
+                            </ComboBox>
+                        </smartFilterBar:customControl>
+                    </smartFilterBar:ControlConfiguration>
+                </smartFilterBar:controlConfiguration>
+            </smartFilterBar:SmartFilterBar>
+            <smartTable:SmartTable
+                smartFilterId="idSmartFilterBar"
+                tableType="ResponsiveTable"
+                showVariantManagement="true"
+                beforeRebindTable="onBeforeRebindTable"
+                entitySet="DataSet"
+                useVariantManagement="true"
+                useTablePersonalisation="true"
+                showRowCount="true"
+                useExportToExcel="true"
+                enableAutoBinding="true"
+                showFullScreenButton="true"
+                showDetailsButton="true"
+                header="{i18n>History}"
+                backgroundDesign="Translucent"
+            >
+                <smartTable:customToolbar>
+                    <OverflowToolbar design="Auto">
+                        <ToolbarSpacer />
+                        <Button
+                            press="pressAdd"
+                            type="Success"
+                            text="{i18n>NotAdd}"
+                            icon="sap-icon://add"
+                        />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+                <Table
+                    id="idTable"
+                    backgroundDesign="Transparent"
+                >
+                    <columns>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "Id", "columnIndex":"0", "sortProperty":"Id", "leadingProperty": "Id"}'
+                                />
+                            </customData>
+                            <Text text="{i18n>ID}" />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "Pname", "columnIndex":"1", "sortProperty":"Pname", "leadingProperty": "Pname" }'
+                                />
+                            </customData>
+                            <Text text="{i18n>PersName}" />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "Tiptxt", "columnIndex":"2", "sortProperty":"Tiptxt", "leadingProperty": "Tiptxt", "additionalProperty":"Tip"}'
+                                />
+                            </customData>
+                            <Text text="{i18n>NotType}" />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "Cdate", "columnIndex":"3", "sortProperty":"Cdate", "leadingProperty": "Cdate", "type":"date" }'
+                                />
+                            </customData>
+                            <Text text="{i18n>Date}" />
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "Ctime", "columnIndex":"4", "sortProperty":"Ctime", "leadingProperty": "Ctime", "type":"time"}'
+                                />
+                            </customData>
+                            <Text text="{i18n>Time}" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem
+                            type="Navigation"
+                            press="onColumnListItemPress"
+                            highlight="{
+                                parts: [{
+                                    path: 'Tip'
+                                }],
+                                formatter: '.formatter.highlight'
+                            }"
+                        >
+                            <cells>
+                                <ObjectNumber
+                                    state="Information"
+                                    number="{Id}"
+                                />
+                                <Text text="{Pname}" />
+                                <ObjectStatus
+                                    text="{Tiptxt}"
+                                    state="{
+                                        parts: [{
+                                            path: 'Tip'
+                                        }],
+                                        formatter: '.formatter.RBchange'
+                                    }"
+                                />
+                                <Text text="{
+                                    path: 'Cdate',
+                                    type: 'sap.ui.model.odata.type.Date',
+                                    formatOptions: {
+                                        pattern: 'dd.MM.yyyy'
+                                    }
+                                }" />
+                                <Text text="{
+                                    path: 'Ctime',
+                                    type: 'sap.ui.model.odata.type.Time',
+                                    formatOptions: {
+                                        pattern: 'HH:mm:ss'
+                                    }
+                                }" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable>
+        </content>
+    </Page>
+</mvc:View>
